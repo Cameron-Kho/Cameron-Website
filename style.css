@@ -1,0 +1,372 @@
+/* 
+  Cameron's Website - Modern Geopolitics & Economics Theme
+  Colors: Oxford Navy (#002147), Slate Gold (#C5A059), Data Grey (#F1F5F9)
+*/
+
+:root {
+  --primary: #002147;      /* Deep Oxford Navy */
+  --secondary: #C5A059;    /* Professional Gold/Brass */
+  --bg-light: #f1f5f9;     
+  --text-main: #1e293b;    
+  --accent: #334155;       
+  --white: #ffffff;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Global Reset & Background */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--bg-light);
+  color: var(--text-main);
+  margin: 0;
+  padding: 0;
+  line-height: 1.7;
+  overflow-x: hidden;
+  min-height: 100vh;
+
+  /* THEMATIC BACKGROUND: Reliable Embedded SVG World Map */
+  background-image: 
+    /* Layer 1: Gold Dots at intersections */
+    radial-gradient(var(--secondary) 1.5px, transparent 1.5px),
+    /* Layer 2: Horizontal Grid Lines */
+    linear-gradient(rgba(0, 33, 71, 0.1) 1px, transparent 1px),
+    /* Layer 3: Vertical Grid Lines */
+    linear-gradient(90deg, rgba(0, 33, 71, 0.1) 1px, transparent 1px),
+    /* Layer 4: EMBEDDED SVG WORLD MAP (Reliable & No External Link) */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 500'%3E%3Cpath fill='%23002147' opacity='0.1' d='M150,150 Q200,100 250,150 T350,150 T450,200 T550,150 T650,100 T750,150 T850,200 L850,350 Q750,400 650,350 T550,350 T450,300 T350,350 T250,400 T150,350 Z M200,200 h50 v50 h-50 z M400,100 h80 v40 h-80 z M700,250 h100 v60 h-100 z M300,300 h40 v40 h-40 z'/%3E%3C/svg%3E"),
+    /* Layer 5: Vignette (Darker edges) */
+    radial-gradient(circle, transparent 30%, rgba(203, 213, 225, 0.5) 100%);
+  
+  background-size: 50px 50px, 50px 50px, 50px 50px, 100% auto, 100% 100%;
+  background-position: 0 0, 0 0, 0 0, center center, 0 0;
+  background-repeat: repeat, repeat, repeat, no-repeat, no-repeat;
+  background-attachment: fixed;
+}
+
+/* Main Container */
+.container {
+  max-width: 750px;
+  margin: 60px auto;
+  padding: 40px;
+  background-color: rgba(255, 255, 255, 0.85); 
+  backdrop-filter: blur(12px); 
+  border: 1px solid rgba(0, 33, 71, 0.15);
+  border-radius: 20px;
+  box-shadow: 0 25px 60px rgba(0, 33, 71, 0.15);
+  position: relative;
+  z-index: 1;
+}
+
+/* Typography */
+h1 {
+  font-size: 2.5rem;
+  color: var(--primary);
+  text-align: center;
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin-bottom: 30px;
+}
+
+h1::after {
+  content: "";
+  display: block;
+  width: 50px;
+  height: 4px;
+  background: var(--secondary);
+  margin: 12px auto 0;
+  border-radius: 2px;
+}
+
+h2 {
+  font-size: 1.4rem;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+h2::before {
+  content: "";
+  width: 4px;
+  height: 20px;
+  background: var(--secondary);
+  display: inline-block;
+}
+
+/* Sections */
+.about-me {
+  background: rgba(255, 255, 255, 0.5);
+  padding: 25px;
+  border-radius: 12px;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  margin-bottom: 30px;
+}
+
+.highlight {
+  color: var(--primary);
+  font-weight: 700;
+  background: linear-gradient(120deg, rgba(197, 160, 89, 0.25) 0%, rgba(197, 160, 89, 0.25) 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 0.3em;
+  background-position: 0 88%;
+}
+
+/* Navigation Buttons */
+.button-section {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin: 40px 0;
+}
+
+.button-section button {
+  background-color: var(--primary);
+  color: var(--white);
+  border: none;
+  padding: 12px 28px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.button-section button:hover {
+  background-color: var(--secondary);
+  transform: translateY(-2px);
+}
+
+/* Content Sections */
+.content-section {
+  animation: slideUp 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  border-radius: 12px;
+  margin-top: 20px;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Economy Clicker UI */
+.GDP_Number {
+  background: var(--primary);
+  color: var(--white);
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 3rem;
+  font-weight: 800;
+  text-align: center;
+  margin: 20px auto;
+  padding: 30px;
+  border-radius: 12px;
+  border-bottom: 5px solid var(--secondary);
+}
+
+.GDP_Number::before {
+  content: "LIVE ECONOMIC OUTPUT";
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  color: var(--secondary);
+  margin-bottom: 8px;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.controls button {
+  padding: 10px 20px;
+  background: var(--white);
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.controls button:hover {
+  background: var(--primary);
+  color: var(--white);
+}
+
+/* History Card */
+.history-card {
+  background: rgba(241, 245, 249, 0.5);
+  padding: 20px;
+  border-radius: 8px;
+  border-left: 5px solid var(--primary);
+  font-style: italic;
+  color: var(--accent);
+  margin: 20px 0;
+}
+
+/* Shop Modal */
+.shop-modal {
+  background: rgba(0, 33, 71, 0.95);
+  backdrop-filter: blur(8px);
+}
+
+.shop-content {
+  background: var(--white);
+  padding: 30px;
+  border-radius: 16px;
+  max-width: 380px;
+  width: 90%;
+  border-top: 6px solid var(--secondary);
+}
+
+.upgrade-item {
+  background: #f8fafc;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  margin: 12px 0;
+}
+
+.upgrade-item button {
+  width: 100%;
+  padding: 10px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Projects / Iframe */
+.project-frame-wrapper {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  height: 400px; /* This sets the height of the box */
+  width: 100%;   /* This sets the width of the box */
+  margin-top: 20px;
+}
+
+/* THIS IS THE MISSING PIECE: */
+.project-frame-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  margin-top: 60px;
+  font-size: 0.75rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Voting Section Styling */
+.resolution-card {
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid var(--primary);
+  border-radius: 15px;
+  padding: 30px;
+  margin-top: 20px;
+  box-shadow: 0 10px 25px rgba(0, 33, 71, 0.05);
+}
+
+.resolution-card h3 {
+  color: var(--primary);
+  font-size: 1.4rem;
+  margin-bottom: 15px;
+  text-align: center;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 10px;
+}
+
+.resolution-card p {
+  font-style: italic;
+  color: #475569;
+  background: #f8fafc;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+  line-height: 1.8;
+}
+
+/* Voting Buttons */
+.resolution-card button {
+  width: 45%;
+  margin: 10px 2.5%;
+  padding: 15px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+/* Specific colors for Aff/Neg */
+button[onclick*="'Aff'"] {
+  background-color: #1e40af; /* Deep Blue for Aff */
+  color: white;
+  border: none;
+}
+
+button[onclick*="'Neg'"] {
+  background-color: #991b1b; /* Deep Red for Neg */
+  color: white;
+  border: none;
+}
+
+.resolution-card button:hover {
+  transform: scale(1.05);
+  filter: brightness(1.2);
+}
+
+/* Results Display */
+.vote-results {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: var(--primary);
+}
+
+/* AI Credits Section Styling */
+.ai-credits {
+  margin-top: 40px;
+  padding: 20px;
+  border-top: 1px solid rgba(0, 33, 71, 0.1);
+  text-align: center;
+}
+
+.ai-header {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--secondary); /* This uses your gold accent color */
+  margin-bottom: 8px;
+}
+
+.ai-credits p {
+  font-size: 0.8rem;
+  color: #64748b;
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.5;
+  font-style: italic;
+}
