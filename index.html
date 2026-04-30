@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cameron's Website</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+  <h1>Welcome to Cameron's Website!</h1>
+
+  <div class="about-me">
+    <h2>About Me</h2>
+    <p>Hi! I'm <span class="highlight">Cameron</span>. This is my website, with games and projects. I hope you like it!</p>
+  </div>
+
+  <!-- Navigation Buttons -->
+  <div class="button-section">
+    <button onclick="showSection('about-me-section')">About me</button>
+    <button onclick="showSection('game-section')">Games</button>
+    <button onclick="showSection('projects-section')">Things I do</button>
+    <button onclick="showSection('voting-section')">Vote for the weekly resolution</button>
+  </div>
+
+  <!-- About me Section -->
+  <div id="about-me-section" class="content-section" style="display: none;">
+    <h2>About me</h2>
+    <p>Hi there! I am Cameron, a 7th grader at the Village Middle School. I enjoy coding, playing the piano, and doing speech and debate. </p>
+  </div>
+
+  <!-- Games Section -->
+  <div id="game-section" class="content-section" style="display: none;">
+    <h2>Games</h2>
+    <h3>On this month in history</h3>
+    <p>Note: I am temporarily using "on this month" because I don't have a database of 365 events yet.</p>
+    <div id="daily-history-box" class="history-card"></div>
+    
+    <div class="clicker-container">
+      <h3>Economy Clicker</h3>
+      <div id="Current_GDP" class="GDP_Number">$0</div> 
+      <div class="controls">
+        <button onclick="increase_GDP()">Increase GDP</button>
+        <button onclick="openShop()">Open Shop</button>
+      </div>
+      <p> Every second, you lose 1% of your GDP to inflation.</p>
+      <p>See if you can get to the US Current GDP</p>
+    </div>
+
+    <div id="shop-overlay" class="shop-modal" style="display: none;">
+      <div class="shop-content">
+        <h2>Global Trade Ministry</h2>
+        
+        <div class="upgrade-item">
+          <p>Infrastructure (+1 click)</p>
+          <!-- Added this line below -->
+          <p>Owned: <span id="infrastructure-count">0</span></p> 
+          <button id="upgrade-click-btn" onclick="buyInfrastructure()">Cost: $50</button>
+        </div>
+
+        <div class="upgrade-item">
+          <p>Trade Bots (+5 passive)</p>
+          <!-- Added this line below -->
+          <p>Owned: <span id="tradebot-count">0</span></p>
+          <button id="upgrade-passive-btn" onclick="buyTradeBots()">Cost: $100</button>
+        </div>
+
+        <button onclick="closeShop()">Close</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Projects Section (Things I do) -->
+  <div id="projects-section" class="content-section" style="display: none;">
+    <h2>My Projects</h2>
+
+    <!-- Projects Section -->
+
+  <div class="project-frame-wrapper">
+    <iframe 
+      src="https://www.canva.com/design/DAG-nFTEUFM/YPAB9kN0Fze8nHUHFjG-fQ/view?embed" 
+      allowfullscreen="allowfullscreen" 
+      allow="fullscreen">
+    </iframe>
+  </div>
+
+
+  <h3> Piano</h3>
+  <h4> Note: Only works if you are singed in with a Google account</h4>
+  <div class="project-frame-wrapper">
+    <iframe 
+      loading="lazy" 
+      src="https://drive.google.com/file/d/15af6_zver7HLKUNYdPdBb4q1r8dI1svo/view?usp=drive_link" 
+      allowfullscreen="allowfullscreen" 
+      allow="fullscreen">
+    </iframe>
+
+  </div>
+
+  <h3> Speech and Debate</h3>
+  <h4> 
+    I compete in Congressional Debate and Extemparanous Speaking.
+    I started Speech and Debate in late 6th grade, and I started competing in 7th grade. 
+    I have finaled and placed multiple tournamnets, 
+    such as 3rd at the Stephen F Austin Tournament, 1st at Albright, 3rd at Olle Owl Middle School Invitational in Extemparanous Speaking.
+    I have competed in the TJSDA State Tournament, and I will be competing in the NSDA National Tournament in June 2026.
+  </h4>
+
+
+</div>
+
+
+<!-- Voting Section -->
+<div id="voting-section" class="content-section" style="display: none;">
+  <h2>Vote for the Weekly Resolution</h2>
+  <p>Every week, I will post a new resolution for you to vote on.</p>
+  
+  <div class="resolution-card">
+    <h3>TFA Spring Docket Bill 4: Strategic Uranium Stockpiling Act</h3>
+    
+    <!-- Voting Buttons -->
+    <button onclick="voteResolution('Aff')">Vote for Aff</button>
+    <button onclick="voteResolution('Neg')">Vote for Neg</button>
+
+    <!-- NEW: Results Display Area -->
+    <div class="vote-results">
+      <p>Affirmative: <span id="aff-count">0</span></p>
+      <p>Negative: <span id="neg-count">0</span></p>
+    </div>
+
+    <p>
+      Some things to think about: Creating a uranium reserve means that we don't get our nuclear energy and nuclear submarine supply cut off
+      We get lots of uranium from our enemies like Russia and Kazhakstan
+      But a stockpile can increase the chance of enviromental disasters, and it can be a target for terrorism.
+    </p>
+  </div>
+</div>
+
+
+<div class="ai-credits">
+  <div class="ai-header">How I used AI</div>
+  <p>I used AI to help me create the CSS code to make the design look better. I also used AI to teach me how to create some of the JavaScript logic.</p>
+</div>
+
+<!-- Footer-->
+<div class="footer">© 2025 Cameron Kho</div>
+
+
+</div>
+
+
+
+<script src="script.js"></script>
+</body>
+</html>
