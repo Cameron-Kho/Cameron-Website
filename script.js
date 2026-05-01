@@ -74,9 +74,10 @@ function checkEvent() {
 
     passive_income = passive_income * currentEvent.mult;
 
-    alert("MAJOR EVENT!!!! " + currentEvent.name + "\n" + currentEvent.msg);
 
-    setTimeout(() => { // Fixed: Removed the space
+    alert("MAJOR EVENT!!!! " + currentEvent.name);
+
+    setTimeout(() => {
       passive_income = passive_income / currentEvent.mult;
       alert("The " + currentEvent.name + " has ended.");
       updateDisplay();
@@ -85,6 +86,7 @@ function checkEvent() {
     updateDisplay();
   }
 }
+
 
 setInterval(checkEvent, 30000);
 
