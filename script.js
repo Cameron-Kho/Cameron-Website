@@ -143,12 +143,12 @@ async function fetchNews() {
 }
 
 window.onload = () => {
-  fetchNews();
+  fetchNews(); // This starts the news ticker
   const currentMonth = new Date().getMonth();
   const box = document.getElementById("daily-history-box");
   if (box) {
     const h = historyDatabase[currentMonth];
     box.innerHTML = `On this month (${h.month + 1}), in ${h.year}: ${h.event}`;
   }
-  updateDisplay();
+  updateDisplay(); // This starts the GDP numbers
 };
