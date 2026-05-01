@@ -23,7 +23,7 @@ function buyInfrastructure() {
     world_GDP -= infrastructureCost;
     infrastructureCount++;
     increase_per_click += 2;
-    infrastructureCost = Math.round(infrastructureCost * 1.5);
+    infrastructureCost = Math.round(infrastructureCost * 1.25);
     updateDisplay();
   } else { alert("Not enough GDP!"); }
 }
@@ -33,7 +33,7 @@ function buyTradeBots() {
     world_GDP -= tradeBotCost;
     tradeBotCount++;
     passive_income += 5;
-    tradeBotCost = Math.round(tradeBotCost * 1.5);
+    tradeBotCost = Math.round(tradeBotCost * 1.25);
     updateDisplay();
   } else { alert("Not enough GDP!"); }
 }
@@ -54,6 +54,36 @@ function updateDisplay() {
 setInterval(() => { lost_from_inflation = world_GDP * 0.01; updateDisplay(); }, 1000);
 setInterval(() => { world_GDP += passive_income; updateDisplay(); }, 1000);
 setInterval(() => { world_GDP -= lost_from_inflation; updateDisplay(); }, 1000);
+
+let events = [
+  { name: "Trade Boom", mult: 2 }, 
+  { name: "Recession", mult: 0.5 }
+];
+
+function checkEvent() {
+
+  let roll = Math.random()
+  if (roll > 0.7) {
+    let eventIndex = Math.floor(Math.random() * events.length);
+    let currentEvent = events[eventIndex];
+
+    passive_income = passive_income * currentEvent.mult
+
+    alert("MAJOR EVENT!!!! " + currentEvent.name + "/n" + currentEvent.message);
+
+    set Timeout(() => {
+      passive_income = passive_income / currentEvent.mult;
+      alert("The " + currentEvent.name + " has ended.");
+      updateDisplay();
+    }, 10000);
+
+  
+    updateDisplay()
+
+  }
+}
+
+setInterval(checkEvent, 30000);
 
 // History Logic
 const historyDatabase = [
@@ -107,6 +137,7 @@ function voteResolution(side) { // Changed to match your HTML onclick="voteResol
 }
 
 
+
 // Function to fetch real news headlines
 async function fetchNews() {
   const ticker = document.getElementById('news-ticker');
@@ -149,4 +180,5 @@ window.onload = () => {
   }
   updateDisplay();
 };
+\
 
