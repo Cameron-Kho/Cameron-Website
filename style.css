@@ -370,3 +370,38 @@ button[onclick*="'Neg'"] {
   line-height: 1.5;
   font-style: italic;
 }
+
+
+.ticker-wrap {
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--primary);
+  color: var(--secondary);
+  padding: 10px 0;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 2px solid var(--secondary);
+}
+
+.ticker {
+  display: inline-block;
+  white-space: nowrap;
+  padding-right: 100%;
+  animation: ticker 30s linear infinite;
+}
+
+.ticker__item {
+  display: inline-block;
+  padding: 0 50px;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: bold;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+@keyframes ticker {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-100%, 0, 0); }
+}
+
