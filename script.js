@@ -105,3 +105,48 @@ function voteResolution(side) { // Changed to match your HTML onclick="voteResol
   
   alert("Thank you for voting " + side + "!");
 }
+
+
+// Function to fetch real news headlines
+async function fetchNews() {
+  const ticker = document.getElementById('news-ticker');
+  const rssUrl = 'https://rss.nytimes.com/services/xml/rss/nyt/World.xml'; // Using NYT World News
+  const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl )}`;
+
+  try {
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+    
+    if (data.status === 'ok') {
+      // Clear the "Loading" message
+      ticker.innerHTML = '';
+      
+      // Loop through the news items and add them to the ticker
+      data.items.forEach(item => {
+        const newsItem = document.createElement('div');
+        newsItem.className = 'ticker__item';
+        // Clean up the title and add a separator
+        newsItem.innerText = `• ${item.title.toUpperCase()} `;
+        ticker.appendChild(newsItem);
+      });
+    }
+  } catch (error) {
+    console.error('Error fetching news:', error);
+    ticker.innerHTML = '<div class="ticker__item">Unable to load live news at this time.</div>';
+  }
+}
+
+// Update your window.onload to include fetchNews()
+window.onload = () => {
+  fetchNews(); // <--- Add this line
+  
+  // ... keep your existing onload code (History logic, etc.)
+  const currentMonth = new Date().getMonth();
+  const box = document.getElementById("daily-history-box");
+  if (box) {
+    const h = historyDatabase[currentMonth];
+    box.innerHTML = `On this month (${h.month + 1}), in ${h.year}: ${h.event}`;
+  }
+  updateDisplay();
+};
+
