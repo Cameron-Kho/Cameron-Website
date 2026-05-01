@@ -13,6 +13,7 @@ let infrastructureCost = 50;
 let infrastructureCount = 0;
 let tradeBotCost = 100;
 let tradeBotCount = 0;
+let lost_from_inflation = 0; // Fixed: Define this at the top
 
 function increase_GDP() { world_GDP += increase_per_click; updateDisplay(); }
 function openShop() { document.getElementById('shop-overlay').style.display = 'flex'; }
@@ -45,41 +46,43 @@ function updateDisplay() {
   const infraCountEl = document.getElementById('infrastructure-count');
   const botCountEl = document.getElementById('tradebot-count');
 
-  if (gdpEl) gdpEl.innerText = "$" + world_GDP.toLocaleString();
+  if (gdpEl) gdpEl.innerText = "$" + Math.floor(world_GDP).toLocaleString();
   if (infraBtn) infraBtn.innerText = "Cost: $" + infrastructureCost.toLocaleString();
   if (botBtn) botBtn.innerText = "Cost: $" + tradeBotCost.toLocaleString();
   if (infraCountEl) infraCountEl.innerText = infrastructureCount;
   if (botCountEl) botCountEl.innerText = tradeBotCount;
 }
-setInterval(() => { lost_from_inflation = world_GDP * 0.01; updateDisplay(); }, 1000);
-setInterval(() => { world_GDP += passive_income; updateDisplay(); }, 1000);
-setInterval(() => { world_GDP -= lost_from_inflation; updateDisplay(); }, 1000);
+
+// Fixed: Combined the intervals to keep it clean
+setInterval(() => { 
+  lost_from_inflation = world_GDP * 0.01; 
+  world_GDP += passive_income; 
+  world_GDP -= lost_from_inflation; 
+  updateDisplay(); 
+}, 1000);
 
 let events = [
-  { name: "Trade Boom", mult: 2 }, 
-  { name: "Recession", mult: 0.5 }
+  { name: "Trade Boom", mult: 2, msg: "Global demand is up!" }, 
+  { name: "Recession", mult: 0.5, msg: "Economic downturn!" }
 ];
 
 function checkEvent() {
-
-  let roll = Math.random()
+  let roll = Math.random();
   if (roll > 0.7) {
     let eventIndex = Math.floor(Math.random() * events.length);
     let currentEvent = events[eventIndex];
 
-    passive_income = passive_income * currentEvent.mult
+    passive_income = passive_income * currentEvent.mult;
 
-    alert("MAJOR EVENT!!!! " + currentEvent.name + "/n" + currentEvent.message);
+    alert("MAJOR EVENT!!!! " + currentEvent.name + "\n" + currentEvent.msg);
 
-    set Timeout(() => {
+    setTimeout(() => { // Fixed: Removed the space
       passive_income = passive_income / currentEvent.mult;
       alert("The " + currentEvent.name + " has ended.");
       updateDisplay();
     }, 10000);
 
-  
-    updateDisplay()
-
+    updateDisplay();
   }
 }
 
@@ -101,77 +104,46 @@ const historyDatabase = [
   { month: 11, day: 25, year: 1991, event: "USSR dissolved." }
 ];
 
-window.onload = () => {
-  const currentMonth = new Date().getMonth();
-  const box = document.getElementById("daily-history-box");
-  if (box) {
-    const h = historyDatabase[currentMonth];
-    box.innerHTML = `On this month (${h.month + 1}), in ${h.year}: ${h.event}`;
-  }
-  updateDisplay();
-};
-
 let affvotes = 0;
 let negvotes = 0;
 let hasvoted = false;
 
-function voteResolution(side) { // Changed to match your HTML onclick="voteResolution"
+function voteResolution(side) {
   if (hasvoted) {
     alert("You have already voted!");
     return;
   }
-
-  if (side === 'Aff') { // Match the capital 'A' from your HTML
-    affvotes++;
-  } else if (side === 'Neg') { // Match the capital 'N'
-    negvotes++;
-  }
-
+  if (side === 'Aff') { affvotes++; } 
+  else if (side === 'Neg') { negvotes++; }
   hasvoted = true;
-
-  // THIS IS THE NEW PART: Update the HTML text
   document.getElementById('aff-count').innerText = affvotes;
   document.getElementById('neg-count').innerText = negvotes;
-  
   alert("Thank you for voting " + side + "!");
 }
 
-
-
-// Function to fetch real news headlines
 async function fetchNews() {
   const ticker = document.getElementById('news-ticker');
-  const rssUrl = 'https://rss.nytimes.com/services/xml/rss/nyt/World.xml'; // Using NYT World News
+  const rssUrl = 'https://rss.nytimes.com/services/xml/rss/nyt/World.xml';
   const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl )}`;
-
   try {
     const response = await fetch(apiUrl);
     const data = await response.json();
-    
     if (data.status === 'ok') {
-      // Clear the "Loading" message
       ticker.innerHTML = '';
-      
-      // Loop through the news items and add them to the ticker
       data.items.forEach(item => {
         const newsItem = document.createElement('div');
         newsItem.className = 'ticker__item';
-        // Clean up the title and add a separator
         newsItem.innerText = `• ${item.title.toUpperCase()} `;
         ticker.appendChild(newsItem);
       });
     }
   } catch (error) {
-    console.error('Error fetching news:', error);
-    ticker.innerHTML = '<div class="ticker__item">Unable to load live news at this time.</div>';
+    ticker.innerHTML = '<div class="ticker__item">Unable to load live news.</div>';
   }
 }
 
-// Update your window.onload to include fetchNews()
 window.onload = () => {
-  fetchNews(); // <--- Add this line
-  
-  // ... keep your existing onload code (History logic, etc.)
+  fetchNews();
   const currentMonth = new Date().getMonth();
   const box = document.getElementById("daily-history-box");
   if (box) {
@@ -180,5 +152,3 @@ window.onload = () => {
   }
   updateDisplay();
 };
-\
-
